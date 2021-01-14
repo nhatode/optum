@@ -1,5 +1,5 @@
 const data = require('./data.js');
-
+console.log(data);
 module.exports = {
     getCustomerDetails: function (context) {
         try {
@@ -13,13 +13,29 @@ module.exports = {
 
     postmId: function (context) {
         try {
-            const response = data.postmId(context.req.params.mid);
+            var response = data.postmId(context.req.params.mid);
+            var response = data.fname(context.req.params.fname);
+            var response = data.lname(context.req.params.lname);
             context.res.send(JSON.stringify(response));
+            
         } catch (error) {
             context.log(error)
             context.res.status(500).send(error);
         }
     }
+
+    // fname: function (context) {
+    //     try {
+    //         const response = data.fname(context.req.params.fname);
+    //         console.log(context.req.params.fname);
+    //         console.log(response);
+    //         context.res.send(JSON.stringify(response));
+            
+    //     } catch (error) {
+    //         context.log(error)
+    //         context.res.status(500).send(error);
+    //     }
+    // }
 
 };
 

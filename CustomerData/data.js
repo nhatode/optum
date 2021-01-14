@@ -53,12 +53,18 @@ module.exports = {
             CustomerData.id = id;
         }
         return CustomerData;             
-    }
+    },
 
-    // fName: function (id) {
-    //     if (id != CustomerData.firstName) {
-    //         CustomerData.firstName = id;
-    //     }
-    //     return CustomerData;
-    // }
+    fname: function (fname) {
+        if (fname != CustomerData.firstName) {
+            CustomerData.firstName = fname;
+        }
+        return CustomerData;
+    },
+    lname: function (lname) {
+        if (lname != CustomerData.lastName) {
+            CustomerData.lastName = lname;
+        }
+        return CustomerData;
+    }
 };
