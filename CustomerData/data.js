@@ -66,5 +66,12 @@ module.exports = {
             CustomerData.lastName = lname;
         }
         return CustomerData;
+    },
+    dob: function (dob) {
+        if (dob != CustomerData.dateOfBirthName) {
+            CustomerData.dateOfBirth = dob;
+        }
+        return CustomerData;
     }
+
 };

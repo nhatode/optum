@@ -1,9 +1,10 @@
 const GetDataService = require('../CustomerData/service');
 
-module.exports = function (context, req) {
+module.exports = {
+    MemberAPI: function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
-    if (req.params || req.params.mid || req.params.fname || req.params.lname) {
+    if (req.params || req.params.mid || req.params.fname || req.params.lname || req.params.dob) {
         
         context.res = {
             status: 200,
@@ -18,4 +19,7 @@ module.exports = function (context, req) {
         };
     }
     context.done();
+}
 };
+
+

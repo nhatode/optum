@@ -16,6 +16,7 @@ module.exports = {
             var response = data.postmId(context.req.params.mid);
             var response = data.fname(context.req.params.fname);
             var response = data.lname(context.req.params.lname);
+            var response = data.dob(context.req.params.dob);
             context.res.send(JSON.stringify(response));
             
         } catch (error) {
