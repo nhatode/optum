@@ -1,6 +1,6 @@
 const CustomerData = {
     "searchInputMetaData": {
-        "applicationId": "POR2",
+        "applicationId": "ISDM",
         "consumerAppType": "IA",
         "consumerType": "CA",
         "externalCorrelationId": "Test03007062017"
@@ -16,11 +16,11 @@ const CustomerData = {
     "cagList": "",
     "cagListType": "",
     "incExcListIdentifier": "",
-    "id": "TESTMEM22333322333",
+    "id": "",
     "idType": "",
     "idSearchOperator": "",
     "familyIdScope": "",
-    "dateOfBirth": "19971102",
+    "dateOfBirth": "",
     "gender": "",
     "firstName": "",
     "firstNameSearchOperator": "",
@@ -48,26 +48,26 @@ module.exports = {
         return CustomerData;
     },
 
-    postmId: function (id) {
+    setId: function (id) {
         if (id != CustomerData.id) {
             CustomerData.id = id;
         }
         return CustomerData;             
     },
 
-    fname: function (fname) {
+    setFname: function (fname) {
         if (fname != CustomerData.firstName) {
             CustomerData.firstName = fname;
         }
         return CustomerData;
     },
-    lname: function (lname) {
+    setLname: function (lname) {
         if (lname != CustomerData.lastName) {
             CustomerData.lastName = lname;
         }
         return CustomerData;
     },
-    dob: function (dob) {
+    setDob: function (dob) {
         if (dob != CustomerData.dateOfBirthName) {
             CustomerData.dateOfBirth = dob;
         }
