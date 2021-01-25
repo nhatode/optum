@@ -46,7 +46,7 @@ module.exports = function (context, req) {
                             console.log("step 5" + typeof (error))
                             console.log("step 7: " + typeof (new_response))
                             console.log("step 8: " + typeof (res_body))
-                            if (new_response.statusCode == 200 ) {
+                            if (new_response.statusCode == 200) {
                                 // console.log("Step 5" + JSON.parse(res_body).memberItems);
                                 //&& JSON.parse(res_body).memberItems.[memberEligibility]["eligibilityStatus"] == 'A'
                                 context.res.headers = {
