@@ -64,8 +64,13 @@ module.exports = function (context, req) {
                                 context.done();
                             }
                             if (new_response.statusCode != 200) {
+                                var resp = JSON.parse(res_body).errors
+                                for (var i = 0; i < resp.length; i++) {
+                                    var obj = resp[i];
+                                    console.log("Step10" + obj.message);
+                                }
                                 context.res= {
-                                    body: JSON.parse(res_body).errors,
+                                    body: obj.message,
                                     statusCode: new_response.statusCode
                                 };
                                 context.done();   
