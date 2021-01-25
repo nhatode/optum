@@ -49,15 +49,35 @@ module.exports = function (context, req) {
                             if (new_response.statusCode == 200) {
                                 // console.log("Step 5" + JSON.parse(res_body).memberItems);
                                 //&& JSON.parse(res_body).memberItems.[memberEligibility]["eligibilityStatus"] == 'A'
+
                                 context.res.headers = {
                                     'Content-Type': 'application/json',
-
                                 }
                                 console.log("Step 6");
-                                // context.res.send(res_body);
+
+                                // for (var key in obj) {
+                                //     if (obj.hasOwnProperty(key)) {
+                                //         console.log(key + " -> " + obj[key]);
+                                //     }
+                                // }
+                                obj = JSON.parse(res_body)
+                                obj = obj.memberItems
+                                const compare = "A" 
+                                for (var i = 0; i < obj.length; i++) {
+                                    var member = obj[i];
+                                    console.log("Step10" + JSON.stringify(member.memberEligibility));
+                                    for (j = 0; j < member.memberEligibility.length; j++){
+                                        var eligible = member.memberEligibility[j];
+                                        console.log("Step12" + eligible.eligibilityStatus);
+                                        console.log("Step13" + typeof(eligible.eligibilityStatus))
+                                        if (eligible.eligibilityStatus == compare){
+                                            var message = "The Member is Eligible"
+                                        }
+                                    }
+                                }
                                 context.res = {
                                     // body : 'Member is Eligible for Plan type.'
-                                    body: JSON.parse(res_body),
+                                    body: message,
                                     statusCode: new_response.statusCode
 
                                 };
