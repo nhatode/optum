@@ -20,7 +20,7 @@ var CustomerData = {
     "idType": "",
     "idSearchOperator": "",
     "familyIdScope": "",
-    "dateOfBirth": "19971102",
+    "dateOfBirth": "",
     "gender": "",
     "firstName": "",
     "firstNameSearchOperator": "",
@@ -42,34 +42,72 @@ var CustomerData = {
     }
 };
 
+var pharmacyData = {
+    "Physician_NP": "",
+    "Physician_Tax_ID": ""
+};
+
+var drugData = {
+    "Drug_Name": "",
+    "Drug_Code": ""
+};
+
+
 module.exports = {
     getCustomerDetails: function () {
         return CustomerData;
     },
 
     setId: function (id) {
-    if (id != CustomerData.id) {
-        CustomerData.id = id;
-    }return CustomerData;
-    }, 
+        if (id != CustomerData.id) {
+            CustomerData.id = id;
+        } return CustomerData;
+    },
 
     setFname: function (fname) {
-    if (fname != CustomerData.firstName) {
-        CustomerData.firstName = fname;
-    }return CustomerData;
+        if (fname != CustomerData.firstName) {
+            CustomerData.firstName = fname;
+        } return CustomerData;
     },
 
     setLname: function (lname) {
-    if (lname != CustomerData.lastName) {
-        CustomerData.lastName = lname;
-    }return CustomerData;
+        if (lname != CustomerData.lastName) {
+            CustomerData.lastName = lname;
+        } return CustomerData;
     },
-    
+
     setDob: function (dob) {
-    if (dob != CustomerData.dateOfBirthName) {
-        CustomerData.dateOfBirth = dob;
-    }return CustomerData;
-    }
+        if (dob != CustomerData.dateOfBirthName) {
+            CustomerData.dateOfBirth = dob;
+        } return CustomerData;
+    },
+
+    setPhysician_NP: function (physiciannp) {
+        if (physiciannp != pharmacyData.Physician_NP) {
+            pharmacyData.Physician_NP = physiciannp;
+        } return pharmacyData;
+    },
+    setPhysician_Tax_ID: function (physiciantid) {
+        if (physiciantid != pharmacyData.Physician_Tax_ID) {
+            pharmacyData.Physician_Tax_ID = physiciantid;
+        } return pharmacyData;
+    },
+    setDrug_Name: function (drugname) {
+        if (drugname != drugData.Drug_Name) {
+            drugData.Drug_Name = drugname;
+        } return drugData;
+    },
+    setDrug_Code: function (drugcode) {
+        if (drugcode != drugData.Drug_Code) {
+            drugData.Drug_Code = drugcode;
+        } return drugData;
+    },
+    getpharmacyData: function () {
+        return pharmacyData;
+    },
+    getdrugData: function () {
+        return drugData;
+    },
 
 };
 

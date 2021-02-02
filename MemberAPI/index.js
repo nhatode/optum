@@ -1,15 +1,23 @@
 var dataservice = require("../Data/data");
 const request = require("request");
-var alldata = dataservice.getCustomerDetails()
+var alldata = dataservice.getCustomerDetails();
+var pharmadata = dataservice.getpharmacyData();
+var drugdata = dataservice.getdrugData();
+
 
 module.exports = function (context, req) {
-    console.log(req.body)
+    // console.log(req.body)
     if (req.body) {
-        if (req.body.id || req.body.fname || req.body.lname || req.body.dob) {
-            dataservice.setId(context.req.body.id)
-            dataservice.setFname(context.req.body.fname)
-            dataservice.setLname(context.req.body.lname)
-            dataservice.setDob(context.req.body.dob)
+        if (req.body.Member_Id || req.body.Member_First_Name || req.body.Member_Last_Name || req.body.Member_DOB || req.body.Physician_NP || req.body.Physician_Tax_ID ||req.body.Drug_Name ||req.body.Drug_Code) {
+            dataservice.setId(context.req.body.Member_Id)
+            dataservice.setFname(context.req.body.Member_First_name)
+            dataservice.setLname(context.req.body.Member_Last_name)
+            dataservice.setDob(context.req.body.Member_DOB)
+
+            dataservice.setPhysician_NP(context.req.body.Physician_NP)
+            dataservice.setPhysician_Tax_ID(context.req.body.Physician_Tax_ID)
+            dataservice.setDrug_Name(context.req.body.Drug_Name)
+            dataservice.setDrug_Code(context.req.body.Drug_Code)
 
         }
 
@@ -40,57 +48,66 @@ module.exports = function (context, req) {
                     // console.log("options2:" + JSON.stringify(options2))
                     request(options2,
                         function (error, new_response, res_body) {
-                            console.log("step 2" + res_body)
-                            console.log("step 3" + JSON.stringify(new_response))
-                            console.log("step 4" + error)
-                            console.log("step 5" + typeof (error))
-                            console.log("step 7: " + typeof (new_response))
-                            console.log("step 8: " + typeof (res_body))
+                            // console.log("step 2" + res_body)
+                            // console.log("step 3" + JSON.stringify(new_response))
+                            // console.log("step 4" + error)
+                            // console.log("step 5" + typeof (error))
+                            // console.log("step 7: " + typeof (new_response))
+                            // console.log("step 8: " + typeof (res_body))
                             if (new_response.statusCode == 200) {
-                                // console.log("Step 5" + JSON.parse(res_body).memberItems);
-                                //&& JSON.parse(res_body).memberItems.[memberEligibility]["eligibilityStatus"] == 'A'
-
                                 context.res.headers = {
-                                    'Content-Type': 'application/json',
+                                    'Content-Type': 'application/json'
                                 }
-                                console.log("Step 6");
-
-                                // for (var key in obj) {
-                                //     if (obj.hasOwnProperty(key)) {
-                                //         console.log(key + " -> " + obj[key]);
-                                //     }
-                                // }
+                                // console.log("Step 6");
                                 obj = JSON.parse(res_body)
                                 obj = obj.memberItems
                                 const compare = "A" 
                                 for (var i = 0; i < obj.length; i++) {
                                     var member = obj[i];
-                                    console.log("Step10" + JSON.stringify(member.memberEligibility));
+                                    // console.log("Step10" + JSON.stringify(member.memberEligibility));
                                     for (j = 0; j < member.memberEligibility.length; j++){
                                         var eligible = member.memberEligibility[j];
-                                        console.log("Step12" + eligible.eligibilityStatus);
-                                        console.log("Step13" + typeof(eligible.eligibilityStatus))
+                                        // console.log("Step12" + eligible.eligibilityStatus);
+                                        // console.log("Step13" + typeof(eligible.eligibilityStatus))
                                         if (eligible.eligibilityStatus == compare){
-                                            var message = "The Member is Eligible"
+                                            //var message = " Member is Eligible"
+
+                                            var message = {
+                                                "Status Code" : new_response.statusCode,
+                                                "Benefit" : "Medical",
+                                                "Drug Cost" : "$1000",
+                                                "Pharmacy" : pharmadata,
+                                                "Drug" : drugdata
+
+                                                }
                                         }
                                     }
                                 }
                                 context.res = {
                                     // body : 'Member is Eligible for Plan type.'
-                                    body: message,
+                                    headers: { "Content-Type": "application/json"},
+                                    //body:  "\n" +JSON.stringify(message) + "\n" + JSON.stringify(pharmadata) + "\n" + JSON.stringify(drugdata), 
+                                    body:  message,
                                     statusCode: new_response.statusCode
 
                                 };
                                 context.done();
                             }
-                            if (new_response.statusCode != 200) {
+                            else {
                                 var resp = JSON.parse(res_body).errors
                                 for (var i = 0; i < resp.length; i++) {
                                     var obj = resp[i];
-                                    console.log("Step10" + obj.message);
+                                    // console.log("Step10" + obj.message);
+                                    var message2 = {
+                                        "Status Code" : new_response.statusCode,
+                                        "Error": obj
+                                        }
                                 }
+
                                 context.res= {
-                                    body: obj.message,
+                                    headers: { "Content-Type": "application/json"},
+                                   // body: "Status Code: " + new_response.statusCode + "\n" + JSON.stringify(obj),
+                                    body: message2,
                                     statusCode: new_response.statusCode
                                 };
                                 context.done();   
